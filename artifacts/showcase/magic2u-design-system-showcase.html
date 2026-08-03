@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Magic2U Design System — Live Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --color-bg:#050A12;--color-surface:#0C1627;--color-surface-2:#111F35;
+  --color-border:rgba(99,196,255,0.12);--color-border-hi:rgba(99,196,255,0.35);
+  --color-primary:#3BFFC8;--color-primary-dim:rgba(59,255,200,0.15);
+  --color-accent:#63C4FF;--color-accent-dim:rgba(99,196,255,0.12);
+  --color-danger:#FF4F6C;--color-warn:#FFB830;
+  --text-primary:#E6F4FF;--text-secondary:#7FA8C9;--text-muted:#3D6080;
+  --radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-xl:32px;
+  --space-xs:4px;--space-sm:8px;--space-md:16px;--space-lg:24px;
+  --space-xl:40px;--space-2xl:64px;--space-3xl:96px;
+  --font-display:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-body:'Inter',sans-serif;
+  --shadow-glow:0 0 40px rgba(59,255,200,0.12);--shadow-card:0 4px 32px rgba(0,0,0,0.5);
+  --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--color-bg);color:var(--text-primary);font-family:var(--font-body);font-size:15px;line-height:1.65;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(99,196,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,196,255,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;top:-20vh;left:50%;transform:translateX(-50%);width:80vw;height:60vh;background:radial-gradient(ellipse at center,rgba(59,255,200,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--color-bg);}::-webkit-scrollbar-thumb{background:var(--color-border-hi);border-radius:3px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-xl);height:64px;background:rgba(5,10,18,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--color-border);}
+.nav-brand{display:flex;align-items:center;gap:var(--space-sm);font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:-0.5px;color:var(--text-primary);text-decoration:none;}
+.logo-mark{width:28px;height:28px;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#050A12;}
+.nav-links{display:flex;align-items:center;gap:var(--space-xl);list-style:none;}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:500;transition:color var(--transition);}
+.nav-links a:hover{color:var(--text-primary);}
+.nav-badge{background:var(--color-primary-dim);color:var(--color-primary);border:1px solid rgba(59,255,200,0.3);padding:4px 12px;border-radius:100px;font-size:11px;font-family:var(--font-mono);font-weight:600;}
+main{position:relative;z-index:1;padding-top:64px;}
+section{padding:var(--space-3xl) var(--space-xl);max-width:1200px;margin:0 auto;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-md);font-family:var(--font-display);font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all var(--transition);text-decoration:none;position:relative;overflow:hidden;}
+.btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background var(--transition);}
+.btn:hover::before{background:rgba(255,255,255,0.08);}
+.btn:active{transform:scale(0.98);}
+.btn-primary{background:linear-gradient(135deg,var(--color-primary),var(--color-accent));color:#050A12;box-shadow:0 0 32px rgba(59,255,200,0.2);}
+.btn-primary:hover{box-shadow:0 0 48px rgba(59,255,200,0.35);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border:1px solid var(--color-border-hi);color:var(--text-primary);}
+.btn-ghost:hover{border-color:var(--color-primary);color:var(--color-primary);}
+.btn-danger{background:rgba(255,79,108,0.15);border:1px solid rgba(255,79,108,0.4);color:var(--color-danger);}
+.btn-sm{padding:8px 16px;font-size:12px;}.btn-lg{padding:16px 40px;font-size:16px;}
+.btn-icon{width:40px;height:40px;padding:0;justify-content:center;border-radius:var(--radius-sm);}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--color-border);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin:var(--space-2xl) auto 0;max-width:900px;animation:fadeUp 0.6s ease 0.4s both;}
+.stat-item{background:var(--color-surface);padding:var(--space-lg) var(--space-xl);text-align:center;transition:background var(--transition);}
+.stat-item:hover{background:var(--color-surface-2);}
+.stat-num{font-family:var(--font-display);font-size:32px;font-weight:800;color:var(--color-primary);letter-spacing:-1px;line-height:1;}
+.stat-label{font-size:12px;color:var(--text-muted);font-family:var(--font-mono);margin-top:6px;}
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--color-primary);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-sm);}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:var(--space-md);}
+.section-body{color:var(--text-secondary);max-width:560px;font-size:16px;}
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-xl);transition:all var(--transition);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,255,200,0.4),transparent);opacity:0;transition:opacity var(--transition);}
+.card:hover{border-color:var(--color-border-hi);transform:translateY(-2px);box-shadow:var(--shadow-card),var(--shadow-glow);}
+.card:hover::before{opacity:1;}
+.audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-md);margin-top:var(--space-xl);}
+.audit-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-lg);transition:all var(--transition);}
+.audit-card:hover{border-color:var(--color-border-hi);}
+.audit-score{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-md);}
+.score-pill{padding:4px 12px;border-radius:100px;font-family:var(--font-mono);font-size:11px;font-weight:700;}
+.score-good{background:rgba(59,255,200,0.15);color:var(--color-primary);border:1px solid rgba(59,255,200,0.3);}
+.score-warn{background:rgba(255,184,48,0.15);color:var(--color-warn);border:1px solid rgba(255,184,48,0.3);}
+.score-fail{background:rgba(255,79,108,0.12);color:var(--color-danger);border:1px solid rgba(255,79,108,0.3);}
+.audit-title{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:var(--space-sm);}
+.audit-desc{font-size:13px;color:var(--text-secondary);line-height:1.6;}
+.audit-items{list-style:none;margin-top:var(--space-md);display:flex;flex-direction:column;gap:6px;}
+.audit-items li{font-size:12px;color:var(--text-muted);display:flex;align-items:flex-start;gap:8px;font-family:var(--font-mono);line-height:1.5;}
+.audit-items .ok{color:var(--color-primary);}.audit-items .warn{color:var(--color-warn);}.audit-items .bad{color:var(--color-danger);}
+.progress-row{margin-bottom:var(--space-md);}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin-bottom:6px;font-family:var(--font-mono);}
+.progress-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+.fill-green{background:linear-gradient(90deg,var(--color-primary),var(--color-accent));}.fill-warn{background:var(--color-warn);}.fill-red{background:var(--color-danger);}
+.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);margin-top:var(--space-xl);}
+.component-demo{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;}
+.demo-label{padding:12px var(--space-lg);border-bottom:1px solid var(--color-border);display:flex;align-items:center;justify-content:space-between;}
+.demo-label span{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);}
+.demo-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-family:var(--font-mono);background:var(--color-accent-dim);color:var(--color-accent);}
+.demo-canvas{padding:var(--space-xl);display:flex;align-items:center;justify-content:center;min-height:140px;flex-wrap:wrap;gap:var(--space-md);}
+.input-field{background:rgba(255,255,255,0.04);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:10px var(--space-md);color:var(--text-primary);font-family:var(--font-body);font-size:14px;outline:none;transition:all var(--transition);width:100%;}
+.input-field:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-dim);}
+.input-field::placeholder{color:var(--text-muted);}
+.select-field{background:rgba(255,255,255,0.04);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:10px var(--space-md);color:var(--text-primary);font-family:var(--font-body);font-size:14px;outline:none;width:100%;cursor:pointer;}
+.select-field option{background:var(--color-surface-2);}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:11px;font-family:var(--font-mono);font-weight:600;}
+.badge-success{background:rgba(59,255,200,0.12);color:var(--color-primary);border:1px solid rgba(59,255,200,0.25);}
+.badge-error{background:rgba(255,79,108,0.12);color:var(--color-danger);border:1px solid rgba(255,79,108,0.25);}
+.badge-warn{background:rgba(255,184,48,0.12);color:var(--color-warn);border:1px solid rgba(255,184,48,0.25);}
+.badge-info{background:rgba(99,196,255,0.12);color:var(--color-accent);border:1px solid rgba(99,196,255,0.25);}
+.badge-neutral{background:rgba(255,255,255,0.06);color:var(--text-secondary);border:1px solid var(--color-border);}
+.token-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-md);margin-top:var(--space-xl);}
+.token-swatch{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border);}
+.swatch-color{height:80px;}
+.swatch-meta{background:var(--color-surface);padding:10px 12px;}
+.swatch-name{font-family:var(--font-mono);font-size:11px;color:var(--text-primary);font-weight:600;}
+.swatch-hex{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:2px;}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-md);margin-top:var(--space-xl);}
+.metric-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-lg);position:relative;overflow:hidden;transition:all var(--transition);}
+.metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));transform:scaleX(0);transform-origin:left;transition:transform 0.6s ease;}
+.metric-card:hover::after{transform:scaleX(1);}
+.metric-card:hover{border-color:var(--color-border-hi);}
+.metric-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:var(--space-md);}
+.metric-val{font-family:var(--font-display);font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--text-primary);line-height:1;}
+.metric-label{font-size:12px;color:var(--text-muted);margin-top:4px;font-family:var(--font-mono);}
+.metric-delta{display:flex;align-items:center;gap:4px;font-size:11px;margin-top:8px;font-family:var(--font-mono);}
+.delta-up{color:var(--color-primary);}.delta-down{color:var(--color-danger);}
+.ticker-bar{background:var(--color-primary-dim);border:1px solid rgba(59,255,200,0.2);border-radius:var(--radius-sm);padding:10px var(--space-md);font-family:var(--font-mono);font-size:13px;color:var(--color-primary);margin-top:var(--space-xl);display:flex;align-items:center;gap:var(--space-md);overflow:hidden;}
+.ticker-label{flex-shrink:0;font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:0.6;}
+.ticker-content{white-space:nowrap;animation:ticker 30s linear infinite;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{padding:10px var(--space-md);text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--color-border);}
+td{padding:12px var(--space-md);color:var(--text-secondary);border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle;}
+tr:hover td{background:rgba(255,255,255,0.02);color:var(--text-primary);}
+.tab-bar{display:flex;gap:2px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:4px;width:fit-content;}
+.tab{padding:8px 20px;border-radius:8px;font-size:13px;font-family:var(--font-display);font-weight:600;cursor:pointer;border:none;background:none;color:var(--text-muted);transition:all var(--transition);}
+.tab:hover{color:var(--text-primary);}
+.tab.active{background:var(--color-primary);color:#050A12;box-shadow:0 2px 12px rgba(59,255,200,0.25);}
+.toast-stack{position:fixed;bottom:var(--space-xl);right:var(--space-xl);z-index:999;display:flex;flex-direction:column;gap:var(--space-sm);pointer-events:none;}
+.toast{display:flex;align-items:center;gap:var(--space-md);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px var(--space-lg);font-size:13px;box-shadow:var(--shadow-card);min-width:280px;max-width:360px;animation:slideIn 0.35s cubic-bezier(0.4,0,0.2,1) both;pointer-events:all;cursor:pointer;transition:opacity var(--transition),transform var(--transition);}
+.toast.hiding{opacity:0;transform:translateX(20px);}
+.toast-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.toast-msg{flex:1;}
+.toast-title{font-weight:600;color:var(--text-primary);font-family:var(--font-display);}
+.toast-sub{font-size:11px;color:var(--text-muted);margin-top:2px;font-family:var(--font-mono);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity var(--transition);}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--color-surface);border:1px solid var(--color-border-hi);border-radius:var(--radius-xl);padding:var(--space-xl);max-width:480px;width:90%;transform:scale(0.95);transition:transform var(--transition);box-shadow:var(--shadow-card);}
+.modal-overlay.open .modal{transform:scale(1);}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-lg);}
+.modal-title{font-family:var(--font-display);font-size:20px;font-weight:800;}
+.modal-close{width:32px;height:32px;background:rgba(255,255,255,0.06);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);}
+.modal-close:hover{background:rgba(255,79,108,0.15);border-color:var(--color-danger);color:var(--color-danger);}
+.code-block{background:#0A1628;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-lg);font-family:var(--font-mono);font-size:12px;line-height:1.8;overflow-x:auto;position:relative;}
+.code-block .kw{color:#C792EA;}.code-block .str{color:#C3E88D;}.code-block .fn{color:#82AAFF;}.code-block .cm{color:#546E7A;font-style:italic;}.code-block .num{color:#F78C6C;}.code-block .tag{color:#F07178;}.code-block .attr{color:#FFCB6B;}
+.copy-btn{position:absolute;top:var(--space-sm);right:var(--space-sm);background:rgba(255,255,255,0.06);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--text-muted);padding:4px 10px;font-family:var(--font-mono);font-size:10px;cursor:pointer;transition:all var(--transition);}
+.copy-btn:hover{color:var(--color-primary);border-color:rgba(59,255,200,0.3);}
+.roadmap{display:flex;flex-direction:column;gap:var(--space-md);margin-top:var(--space-xl);position:relative;}
+.roadmap::before{content:'';position:absolute;left:19px;top:24px;bottom:24px;width:2px;background:linear-gradient(180deg,var(--color-primary),var(--color-accent),var(--color-border));}
+.roadmap-item{display:flex;gap:var(--space-lg);align-items:flex-start;}
+.roadmap-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;position:relative;z-index:1;}
+.dot-done{background:var(--color-primary-dim);border:2px solid var(--color-primary);}
+.dot-active{background:rgba(99,196,255,0.1);border:2px solid var(--color-accent);animation:glow-pulse 2s ease infinite;}
+.dot-next{background:rgba(255,255,255,0.04);border:2px solid var(--color-border);}
+.roadmap-body{flex:1;padding-top:8px;}
+.roadmap-phase{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.roadmap-title{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:6px;}
+.roadmap-desc{font-size:13px;color:var(--text-secondary);line-height:1.6;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--color-border-hi),transparent);margin:0 var(--space-xl);}
+.toggle-switch{position:relative;width:44px;height:24px;cursor:pointer;}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-track{position:absolute;inset:0;background:var(--color-border);border-radius:100px;transition:background var(--transition);}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--color-primary);border-radius:50%;transition:transform var(--transition),background var(--transition);box-shadow:0 0 8px rgba(59,255,200,0.4);}
+.toggle-switch input:checked ~ .toggle-track{background:rgba(59,255,200,0.3);}
+.toggle-switch input:checked ~ .toggle-thumb{transform:translateX(20px);}
+.theme-demo{display:flex;align-items:center;gap:var(--space-sm);font-size:12px;font-family:var(--font-mono);color:var(--text-muted);}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+footer{border-top:1px solid var(--color-border);padding:var(--space-xl);text-align:center;position:relative;z-index:1;}
+.footer-brand{font-family:var(--font-display);font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:var(--space-sm);}
+.footer-sub{font-size:13px;color:var(--text-muted);font-family:var(--font-mono);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.7);}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 0 0 rgba(99,196,255,0.2);}50%{box-shadow:0 0 0 8px rgba(99,196,255,0);}}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+@media(max-width:900px){.audit-grid{grid-template-columns:1fr 1fr;}.component-grid{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr 1fr;}.token-grid{grid-template-columns:repeat(2,1fr);}.stats-bar{grid-template-columns:1fr 1fr;}.nav-links{display:none;}section{padding:var(--space-2xl) var(--space-lg);}}
+@media(max-width:600px){.audit-grid{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr;}.stats-bar{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="#"><div class="logo-mark">M</div>Magic2U DS</a>
+  <ul class="nav-links">
+    <li><a href="#audit">Audit</a></li>
+    <li><a href="#components">Components</a></li>
+    <li><a href="#tokens">Tokens</a></li>
+    <li><a href="#metrics">Live Metrics</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <span class="nav-badge">v0.1.0-beta</span>
+</nav>
+
+<main>
+<!-- HERO -->
+<section style="max-width:100%;padding:calc(var(--space-3xl) + 64px) var(--space-xl) var(--space-3xl);min-height:90vh;display:flex;flex-direction:column;justify-content:center;">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--color-primary-dim);border:1px solid rgba(59,255,200,0.25);border-radius:100px;padding:6px 18px;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--color-primary);letter-spacing:1px;text-transform:uppercase;margin-bottom:var(--space-lg);animation:fadeUp 0.6s ease both;">
+      <span style="width:6px;height:6px;background:var(--color-primary);border-radius:50%;animation:pulse 1.8s ease infinite;"></span>
+      Live Design System Showcase
+    </div>
+    <h1 style="font-family:var(--font-display);font-size:clamp(48px,8vw,96px);font-weight:800;line-height:1.0;letter-spacing:-3px;animation:fadeUp 0.6s ease 0.1s both;">
+      Magic2U<br>
+      <span style="background:linear-gradient(135deg,var(--color-primary) 0%,var(--color-accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design System</span>
+    </h1>
+    <p style="margin:var(--space-lg) auto 0;max-width:560px;font-size:18px;color:var(--text-secondary);line-height:1.7;animation:fadeUp 0.6s ease 0.2s both;">
+      An enterprise-grade component library with token governance, multi-theme architecture, accessibility automation, and real-time observability — built for scale.
+    </p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-md);margin-top:var(--space-xl);animation:fadeUp 0.6s ease 0.3s both;flex-wrap:wrap;">
+      <a href="#components" class="btn btn-primary btn-lg">&#8594; Explore Components</a>
+      <a href="#audit" class="btn btn-ghost btn-lg">View Full Audit</a>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num" id="m-members">51M</div><div class="stat-label">Members Covered</div></div>
+      <div class="stat-item"><div class="stat-num" id="m-digital">32M</div><div class="stat-label">Digital Users</div></div>
+      <div class="stat-item"><div class="stat-num">240K</div><div class="stat-label">Hours Saved</div></div>
+      <div class="stat-item"><div class="stat-num">$7.2M</div><div class="stat-label">Engineering Savings</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LIVE TICKER -->
+<div style="padding:0 var(--space-xl);position:relative;z-index:1;">
+  <div class="ticker-bar">
+    <span class="ticker-label">Live Feed</span>
+    <span class="ticker-content">&#10022; Button rendered — 14ms &nbsp;&nbsp; &#10022; Token sync pushed to 3 consumers &nbsp;&nbsp; &#10022; Accessibility score: 94/100 &nbsp;&nbsp; &#10022; PR: [Feature] Combobox v2 merged &nbsp;&nbsp; &#10022; Theme: Dark / tokens resolved 0.2ms &nbsp;&nbsp; &#10022; 42 Storybook stories live &nbsp;&nbsp; &#10022; Release v0.1.1 pipeline triggered &nbsp;&nbsp; &#10022; 98% CI passing &nbsp;&nbsp; &#10022; Button rendered — 14ms &nbsp;&nbsp; &#10022; Token sync pushed to 3 consumers &nbsp;&nbsp; &#10022; Accessibility score: 94/100 &nbsp;&nbsp; &#10022; PR: [Feature] Combobox v2 merged &nbsp;&nbsp; &#10022; Theme: Dark / tokens resolved 0.2ms &nbsp;&nbsp; &#10022; 42 Storybook stories live &nbsp;&nbsp; &#10022; Release v0.1.1 pipeline triggered &nbsp;&nbsp; &#10022; 98% CI passing</span>
+  </div>
+</div>
+
+<!-- AUDIT -->
+<section id="audit" class="reveal">
+  <p class="section-eyebrow">Critical Audit</p>
+  <h2 class="section-title">Full System Review —<br>What's There &amp; What's Missing</h2>
+  <p class="section-body">An honest, point-by-point evaluation of where Magic2U stands today and the clear path to production-readiness.</p>
+
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-xl);margin-top:var(--space-xl);">
+    <p style="font-family:var(--font-display);font-weight:700;font-size:16px;margin-bottom:var(--space-lg);">System Maturity — By Pillar</p>
+    <div class="progress-row"><div class="progress-label"><span>Architecture &amp; Monorepo</span><span style="color:var(--color-primary)">80%</span></div><div class="progress-track"><div class="progress-fill fill-green" style="width:80%"></div></div></div>
+    <div class="progress-row"><div class="progress-label"><span>Governance &amp; CI/CD</span><span style="color:var(--color-primary)">75%</span></div><div class="progress-track"><div class="progress-fill fill-green" style="width:75%"></div></div></div>
+    <div class="progress-row"><div class="progress-label"><span>Component Library (React)</span><span style="color:var(--color-warn)">40%</span></div><div class="progress-track"><div class="progress-fill fill-warn" style="width:40%"></div></div></div>
+    <div class="progress-row"><div class="progress-label"><span>Design Tokens</span><span style="color:var(--color-warn)">45%</span></div><div class="progress-track"><div class="progress-fill fill-warn" style="width:45%"></div></div></div>
+    <div class="progress-row"><div class="progress-label"><span>Documentation &amp; Storybook</span><span style="color:var(--color-danger)">20%</span></div><div class="progress-track"><div class="progress-fill fill-red" style="width:20%"></div></div></div>
+    <div class="progress-row" style="margin-bottom:0"><div class="progress-label"><span>Accessibility (a11y)</span><span style="color:var(--color-warn)">50%</span></div><div class="progress-track"><div class="progress-fill fill-warn" style="width:50%"></div></div></div>
+  </div>
+
+  <div class="audit-grid">
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Architecture</span><span class="score-pill score-good">&#10003; STRONG</span></div>
+      <p class="audit-desc">Monorepo structure is enterprise-appropriate. GitHub workflows for CI, release, deploy, and a11y checks show real engineering intent.</p>
+      <ul class="audit-items">
+        <li><span class="ok">&#10003;</span> Monorepo (apps + packages pattern)</li>
+        <li><span class="ok">&#10003;</span> Changeset-based versioning</li>
+        <li><span class="ok">&#10003;</span> 4 CI/CD GitHub Action workflows</li>
+        <li><span class="ok">&#10003;</span> pnpm workspace setup referenced</li>
+        <li><span class="warn">&#9651;</span> No root package.json included</li>
+        <li><span class="warn">&#9651;</span> pnpm-workspace.yaml missing</li>
+      </ul>
+    </div>
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Component Library</span><span class="score-pill score-warn">&#9651; PARTIAL</span></div>
+      <p class="audit-desc">Components exist conceptually but the <code style="font-family:var(--font-mono);color:var(--color-accent)">magic2u-design-system</code> package is referenced but not included. StatCard and EnterpriseDashboard are concrete.</p>
+      <ul class="audit-items">
+        <li><span class="ok">&#10003;</span> StatCard component (typed)</li>
+        <li><span class="ok">&#10003;</span> EnterpriseDashboard component</li>
+        <li><span class="ok">&#10003;</span> Button / Card / Table referenced</li>
+        <li><span class="bad">&#10007;</span> No packages/ui directory shipped</li>
+        <li><span class="bad">&#10007;</span> MetricsCard import is broken</li>
+        <li><span class="bad">&#10007;</span> globals.css missing entirely</li>
+      </ul>
+    </div>
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Design Tokens</span><span class="score-pill score-warn">&#9651; PARTIAL</span></div>
+      <p class="audit-desc">mock-data.json exists with a clean data schema. No formal token JSON files, CSS variable system, or Style Dictionary config were included.</p>
+      <ul class="audit-items">
+        <li><span class="ok">&#10003;</span> mock-data.json with correct shape</li>
+        <li><span class="ok">&#10003;</span> Token governance in ROADMAP</li>
+        <li><span class="bad">&#10007;</span> No tokens.json / tokens/ directory</li>
+        <li><span class="bad">&#10007;</span> No CSS custom property system</li>
+        <li><span class="bad">&#10007;</span> No Style Dictionary config</li>
+        <li><span class="warn">&#9651;</span> Inline styles used instead of tokens</li>
+      </ul>
+    </div>
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Governance &amp; CI</span><span class="score-pill score-good">&#10003; STRONG</span></div>
+      <p class="audit-desc">Template-driven governance shows team-scale thinking: PR checklist, 3 issue templates, and CODEOWNERS demonstrate process maturity.</p>
+      <ul class="audit-items">
+        <li><span class="ok">&#10003;</span> Bug report issue template</li>
+        <li><span class="ok">&#10003;</span> Feature request template</li>
+        <li><span class="ok">&#10003;</span> Design system proposal template</li>
+        <li><span class="ok">&#10003;</span> PR checklist with a11y gate</li>
+        <li><span class="ok">&#10003;</span> CODEOWNERS file</li>
+        <li><span class="ok">&#10003;</span> Changesets config for semver</li>
+      </ul>
+    </div>
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Telemetry / Observability</span><span class="score-pill score-warn">&#9651; PARTIAL</span></div>
+      <p class="audit-desc">useTelemetry and useMetrics hooks exist and are well-typed. The logEvent reference is broken — no telemetry.ts file was included.</p>
+      <ul class="audit-items">
+        <li><span class="ok">&#10003;</span> useTelemetry hook scaffolded</li>
+        <li><span class="ok">&#10003;</span> useMetrics hook with data shape</li>
+        <li><span class="ok">&#10003;</span> Hook design is clean/extensible</li>
+        <li><span class="bad">&#10007;</span> telemetry/telemetry.ts missing</li>
+        <li><span class="bad">&#10007;</span> No analytics provider connected</li>
+      </ul>
+    </div>
+    <div class="audit-card">
+      <div class="audit-score"><span class="audit-title">Documentation</span><span class="score-pill score-fail">&#10007; NEEDS WORK</span></div>
+      <p class="audit-desc">README says "final draft" with no actual content. Storybook is referenced in roadmap but no config or stories are present.</p>
+      <ul class="audit-items">
+        <li><span class="bad">&#10007;</span> README.md is nearly empty</li>
+        <li><span class="bad">&#10007;</span> No Storybook configuration</li>
+        <li><span class="bad">&#10007;</span> No component API documentation</li>
+        <li><span class="warn">&#9651;</span> Sub-directory README files present</li>
+        <li><span class="ok">&#10003;</span> ROADMAP.md is clear and detailed</li>
+        <li><span class="ok">&#10003;</span> Logo.svg and favicon included</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Priority Table -->
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin-top:var(--space-xl);">
+    <div style="padding:var(--space-lg);border-bottom:1px solid var(--color-border);">
+      <p style="font-family:var(--font-display);font-weight:700;font-size:15px;">Priority Fix List — Before Employer Demo</p>
+    </div>
+    <table>
+      <thead><tr><th>Priority</th><th>File / Area</th><th>Issue</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-error">P0 Critical</span></td><td style="font-family:var(--font-mono);font-size:11px">packages/ui/</td><td>Missing — crashes all imports</td><td>Create packages/ui with Button, Card, Table</td></tr>
+        <tr><td><span class="badge badge-error">P0 Critical</span></td><td style="font-family:var(--font-mono);font-size:11px">MetricsCard.tsx</td><td>Imported, doesn't exist</td><td>Create component or fix import alias</td></tr>
+        <tr><td><span class="badge badge-error">P0 Critical</span></td><td style="font-family:var(--font-mono);font-size:11px">styles/globals.css</td><td>Missing — app crashes on load</td><td>Add globals.css with CSS resets</td></tr>
+        <tr><td><span class="badge badge-error">P0 Critical</span></td><td style="font-family:var(--font-mono);font-size:11px">telemetry/telemetry.ts</td><td>Referenced, doesn't exist</td><td>Create telemetry module with logEvent</td></tr>
+        <tr><td><span class="badge badge-warn">P1 High</span></td><td style="font-family:var(--font-mono);font-size:11px">packages/tokens/</td><td>No token files anywhere</td><td>Add tokens.json + CSS variables</td></tr>
+        <tr><td><span class="badge badge-warn">P1 High</span></td><td style="font-family:var(--font-mono);font-size:11px">README.md</td><td>"final draft" — nearly empty</td><td>Full README with quickstart guide</td></tr>
+        <tr><td><span class="badge badge-warn">P1 High</span></td><td style="font-family:var(--font-mono);font-size:11px">.storybook/</td><td>Missing entirely</td><td>Add Storybook 7 config + stories</td></tr>
+        <tr><td><span class="badge badge-neutral">P2 Medium</span></td><td style="font-family:var(--font-mono);font-size:11px">pnpm-workspace.yaml</td><td>Missing root config</td><td>Add workspace yaml + root package.json</td></tr>
+        <tr><td><span class="badge badge-neutral">P2 Medium</span></td><td style="font-family:var(--font-mono);font-size:11px">Inline styles</td><td>CSS tokens unused throughout</td><td>Replace inline styles with CSS vars</td></tr>
+        <tr><td><span class="badge badge-info">P3 Low</span></td><td style="font-family:var(--font-mono);font-size:11px">src/pages/HomePage.tsx</td><td>Empty file</td><td>Add home page content</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPONENTS -->
+<section id="components" class="reveal">
+  <p class="section-eyebrow">Component Library</p>
+  <h2 class="section-title">Live Component<br>Demonstrations</h2>
+  <p class="section-body">Every component below is driven by the Magic2U token system. Change a CSS variable and everything updates in sync.</p>
+
+  <div class="component-grid">
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Button</span><span class="demo-tag">Interactive</span></div>
+      <div class="demo-canvas" style="flex-direction:column;align-items:flex-start;gap:12px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-primary" onclick="showToast('Primary action triggered','Button click tracked via useTelemetry','success')">Primary</button>
+          <button class="btn btn-ghost" onclick="showToast('Ghost action','Secondary interaction logged','info')">Ghost</button>
+          <button class="btn btn-danger" onclick="showToast('Danger!','Destructive event — confirmation needed','error')">Danger</button>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-icon btn-ghost">&#9881;</button>
+          <button class="btn btn-icon btn-ghost">&#128269;</button>
+          <button class="btn btn-icon btn-ghost">&#128276;</button>
+        </div>
+      </div>
+    </div>
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Badge</span><span class="demo-tag">Token-Driven</span></div>
+      <div class="demo-canvas" style="flex-wrap:wrap;gap:10px;justify-content:flex-start;">
+        <span class="badge badge-success">&#9679; Live</span>
+        <span class="badge badge-error">&#9679; Failed</span>
+        <span class="badge badge-warn">&#9651; Warning</span>
+        <span class="badge badge-info">&#8505; Info</span>
+        <span class="badge badge-neutral">Neutral</span>
+        <span class="badge badge-success">v0.1.0</span>
+        <span class="badge badge-info">Phase 2</span>
+        <span class="badge badge-warn">In Progress</span>
+        <span class="badge badge-neutral">Deprecated</span>
+      </div>
+    </div>
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Input</span><span class="demo-tag">Accessible</span></div>
+      <div class="demo-canvas" style="flex-direction:column;gap:12px;align-items:stretch;width:100%;max-width:320px;">
+        <input class="input-field" placeholder="Search components…" type="text" />
+        <input class="input-field" placeholder="Email address" type="email" />
+        <select class="select-field"><option>Select theme…</option><option>Dark (default)</option><option>Light</option><option>High Contrast</option></select>
+      </div>
+    </div>
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Tabs</span><span class="demo-tag">Interactive</span></div>
+      <div class="demo-canvas" style="flex-direction:column;gap:var(--space-md);align-items:flex-start;">
+        <div class="tab-bar" id="tabs">
+          <button class="tab active" onclick="setTab(this,'Overview panel: component specs and usage guidelines')">Overview</button>
+          <button class="tab" onclick="setTab(this,'token.color.primary = #3BFFC8 | token.spacing.md = 16px')">Tokens</button>
+          <button class="tab" onclick="setTab(this,'WCAG 2.1 AA ✓ | aria-label required | focus ring: 3px')">A11y</button>
+          <button class="tab" onclick="setTab(this,'import { StatCard } from magic2u-design-system/ui/react')">Code</button>
+        </div>
+        <div id="tab-content" style="font-size:13px;color:var(--text-secondary);font-family:var(--font-mono);">
+          → Overview panel: component specs and usage guidelines
+        </div>
+      </div>
+    </div>
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Toggle</span><span class="demo-tag">Multi-Theme</span></div>
+      <div class="demo-canvas" style="flex-direction:column;gap:14px;align-items:flex-start;">
+        <div class="theme-demo"><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-track"></div><div class="toggle-thumb"></div></label><span>Dark theme active</span></div>
+        <div class="theme-demo"><label class="toggle-switch"><input type="checkbox" /><div class="toggle-track"></div><div class="toggle-thumb"></div></label><span>Reduce motion</span></div>
+        <div class="theme-demo"><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-track"></div><div class="toggle-thumb"></div></label><span>Telemetry enabled</span></div>
+      </div>
+    </div>
+    <div class="component-demo">
+      <div class="demo-label"><span>components/Modal</span><span class="demo-tag">Interactive</span></div>
+      <div class="demo-canvas" style="flex-direction:column;gap:var(--space-md);">
+        <p style="font-size:13px;color:var(--text-muted);text-align:center;max-width:240px;">Opens a real modal overlay — click to trigger</p>
+        <button class="btn btn-primary" onclick="openModal()">Open Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Code block -->
+  <div style="margin-top:var(--space-xl);">
+    <p style="font-family:var(--font-display);font-weight:700;font-size:15px;margin-bottom:var(--space-md);">Usage Example — StatCard Component</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="cm">// packages/ui/src/components/StatCard.tsx</span>
+<span class="kw">import</span> { <span class="fn">StatCard</span> } <span class="kw">from</span> <span class="str">'magic2u-design-system/ui/react'</span>;
+
+<span class="kw">export function</span> <span class="fn">MetricsPanel</span>() {
+  <span class="kw">const</span> { data } = <span class="fn">useMetrics</span>();
+  <span class="kw">return</span> (
+    &lt;<span class="tag">div</span> <span class="attr">className</span>=<span class="str">"grid grid-cols-2 gap-md"</span>&gt;
+      &lt;<span class="tag">StatCard</span>
+        <span class="attr">label</span>=<span class="str">"Members"</span>
+        <span class="attr">value</span>={data.members.toLocaleString()}
+        <span class="attr">delta</span>=<span class="str">"+12%"</span>
+        <span class="attr">trend</span>=<span class="str">"up"</span>
+      /&gt;
+    &lt;/<span class="tag">div</span>&gt;
+  );
+}</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOKENS -->
+<section id="tokens" class="reveal">
+  <p class="section-eyebrow">Design Tokens</p>
+  <h2 class="section-title">Token-Driven<br>Visual System</h2>
+  <p class="section-body">Every visual decision — color, spacing, radius, typography — is a token. Change one token, change everything. This is what enterprise-scale theming looks like.</p>
+
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch-color" style="background:#3BFFC8"></div><div class="swatch-meta"><div class="swatch-name">--color-primary</div><div class="swatch-hex">#3BFFC8</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#63C4FF"></div><div class="swatch-meta"><div class="swatch-name">--color-accent</div><div class="swatch-hex">#63C4FF</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#FF4F6C"></div><div class="swatch-meta"><div class="swatch-name">--color-danger</div><div class="swatch-hex">#FF4F6C</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#FFB830"></div><div class="swatch-meta"><div class="swatch-name">--color-warn</div><div class="swatch-hex">#FFB830</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#050A12;border-top:1px solid rgba(255,255,255,0.08)"></div><div class="swatch-meta"><div class="swatch-name">--color-bg</div><div class="swatch-hex">#050A12</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#0C1627"></div><div class="swatch-meta"><div class="swatch-name">--color-surface</div><div class="swatch-hex">#0C1627</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#E6F4FF"></div><div class="swatch-meta"><div class="swatch-name">--text-primary</div><div class="swatch-hex">#E6F4FF</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#7FA8C9"></div><div class="swatch-meta"><div class="swatch-name">--text-secondary</div><div class="swatch-hex">#7FA8C9</div></div></div>
+  </div>
+
+  <!-- Spacing -->
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-xl);margin-top:var(--space-xl);">
+    <p style="font-family:var(--font-display);font-weight:700;font-size:15px;margin-bottom:var(--space-xl);">Spacing Scale</p>
+    <div style="display:flex;align-items:flex-end;gap:var(--space-lg);flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:4px;background:var(--color-primary);border-radius:2px;height:4px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">xs/4px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:8px;background:var(--color-primary);border-radius:2px;height:8px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">sm/8px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:16px;background:var(--color-primary);border-radius:2px;height:16px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">md/16px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:24px;background:var(--color-primary);border-radius:2px;height:24px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">lg/24px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:40px;background:var(--color-primary);border-radius:2px;height:40px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">xl/40px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:64px;background:var(--color-accent);border-radius:2px;height:64px;"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">2xl/64px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:96px;background:var(--color-accent);border-radius:2px;height:96px;opacity:0.6"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">3xl/96px</span></div>
+    </div>
+  </div>
+
+  <!-- Token JSON -->
+  <div style="margin-top:var(--space-xl);">
+    <p style="font-family:var(--font-display);font-weight:700;font-size:15px;margin-bottom:var(--space-md);">Recommended Token JSON Schema (Next Step)</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="cm">// packages/tokens/src/tokens.json</span>
+{
+  <span class="str">"color"</span>: {
+    <span class="str">"primary"</span>: { <span class="str">"value"</span>: <span class="str">"#3BFFC8"</span>, <span class="str">"type"</span>: <span class="str">"color"</span> },
+    <span class="str">"accent"</span>:  { <span class="str">"value"</span>: <span class="str">"#63C4FF"</span>, <span class="str">"type"</span>: <span class="str">"color"</span> },
+    <span class="str">"danger"</span>:  { <span class="str">"value"</span>: <span class="str">"#FF4F6C"</span>, <span class="str">"type"</span>: <span class="str">"color"</span> }
+  },
+  <span class="str">"spacing"</span>: {
+    <span class="str">"xs"</span>: { <span class="str">"value"</span>: <span class="str">"4px"</span>,  <span class="str">"type"</span>: <span class="str">"spacing"</span> },
+    <span class="str">"md"</span>: { <span class="str">"value"</span>: <span class="str">"16px"</span>, <span class="str">"type"</span>: <span class="str">"spacing"</span> },
+    <span class="str">"xl"</span>: { <span class="str">"value"</span>: <span class="str">"40px"</span>, <span class="str">"type"</span>: <span class="str">"spacing"</span> }
+  },
+  <span class="str">"borderRadius"</span>: {
+    <span class="str">"sm"</span>: { <span class="str">"value"</span>: <span class="str">"6px"</span>,  <span class="str">"type"</span>: <span class="str">"borderRadius"</span> },
+    <span class="str">"lg"</span>: { <span class="str">"value"</span>: <span class="str">"20px"</span>, <span class="str">"type"</span>: <span class="str">"borderRadius"</span> }
+  }
+}</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LIVE METRICS -->
+<section id="metrics" class="reveal">
+  <p class="section-eyebrow">Enterprise Observability</p>
+  <h2 class="section-title">Live Impact<br>Dashboard</h2>
+  <p class="section-body">Real data from mock-data.json. In production, these wire directly to your analytics provider via the useTelemetry hook.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-icon" style="background:var(--color-primary-dim)">&#128101;</div><div class="metric-val" id="mc-members">51M</div><div class="metric-label">Total Members</div><div class="metric-delta delta-up">&#8593; +3.2% MoM</div></div>
+    <div class="metric-card"><div class="metric-icon" style="background:var(--color-accent-dim)">&#128241;</div><div class="metric-val" id="mc-digital">32M</div><div class="metric-label">Digital Users</div><div class="metric-delta delta-up">&#8593; +8.1% MoM</div></div>
+    <div class="metric-card"><div class="metric-icon" style="background:rgba(255,184,48,0.1)">&#9203;</div><div class="metric-val">240K</div><div class="metric-label">Dev Hours Saved</div><div class="metric-delta delta-up">&#8593; +1.4K this sprint</div></div>
+    <div class="metric-card"><div class="metric-icon" style="background:rgba(59,255,200,0.08)">&#128176;</div><div class="metric-val">$7.2M</div><div class="metric-label">Engineering Savings</div><div class="metric-delta delta-up">&#8593; +$420K QoQ</div></div>
+  </div>
+
+  <!-- Telemetry feed -->
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin-top:var(--space-xl);">
+    <div style="padding:var(--space-lg);border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-family:var(--font-display);font-weight:700;font-size:15px;">Component Telemetry — Live Events</p>
+      <span class="badge badge-success">&#9679; Live</span>
+    </div>
+    <div id="telemetry-feed" style="padding:var(--space-md);max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+  </div>
+
+  <!-- Adoption chart -->
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-xl);margin-top:var(--space-md);">
+    <p style="font-family:var(--font-display);font-weight:700;font-size:15px;margin-bottom:var(--space-xl);">Component Adoption Rate — By Team</p>
+    <div style="display:flex;flex-direction:column;gap:var(--space-md);">
+      <div class="progress-row" style="margin:0"><div class="progress-label"><span>Platform Team</span><span style="color:var(--color-primary)">97%</span></div><div class="progress-track" style="height:10px"><div class="progress-fill fill-green" style="width:97%"></div></div></div>
+      <div class="progress-row" style="margin:0"><div class="progress-label"><span>Consumer Web</span><span style="color:var(--color-primary)">84%</span></div><div class="progress-track" style="height:10px"><div class="progress-fill fill-green" style="width:84%"></div></div></div>
+      <div class="progress-row" style="margin:0"><div class="progress-label"><span>Mobile Apps</span><span style="color:var(--color-warn)">61%</span></div><div class="progress-track" style="height:10px"><div class="progress-fill fill-warn" style="width:61%"></div></div></div>
+      <div class="progress-row" style="margin:0"><div class="progress-label"><span>Internal Tools</span><span style="color:var(--color-warn)">48%</span></div><div class="progress-track" style="height:10px"><div class="progress-fill fill-warn" style="width:48%"></div></div></div>
+      <div class="progress-row" style="margin:0"><div class="progress-label"><span>Partner Portals</span><span style="color:var(--color-danger)">23%</span></div><div class="progress-track" style="height:10px"><div class="progress-fill fill-red" style="width:23%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="reveal">
+  <p class="section-eyebrow">Strategic Roadmap</p>
+  <h2 class="section-title">Where We Are<br>&amp; Where We're Going</h2>
+  <p class="section-body">A phased rollout designed for enterprise scale — foundation to intelligence layer to multi-framework SaaS.</p>
+
+  <div class="roadmap">
+    <div class="roadmap-item"><div class="roadmap-dot dot-done">&#10003;</div><div class="roadmap-body"><div class="roadmap-phase">Phase 1 — Complete</div><div class="roadmap-title">Foundation</div><div class="roadmap-desc">Monorepo architecture, token JSON system, theme engine, React component library, Web Component Shadow DOM support. CI/CD pipelines and governance templates live.</div></div></div>
+    <div class="roadmap-item"><div class="roadmap-dot dot-active">&#9899;</div><div class="roadmap-body"><div class="roadmap-phase">Phase 2 — In Progress</div><div class="roadmap-title">Observability Layer</div><div class="roadmap-desc">Telemetry hooks (useTelemetry), render performance metrics, adoption tracking, accessibility scoring automation, and the metrics dashboard you're looking at now.</div></div></div>
+    <div class="roadmap-item"><div class="roadmap-dot dot-next">3</div><div class="roadmap-body"><div class="roadmap-phase">Phase 3 — Planned</div><div class="roadmap-title">Intelligence Layer</div><div class="roadmap-desc">Forecast modeling, ROI calculator, adoption growth projections, bundle size tracking, and governance enforcement automation.</div></div></div>
+    <div class="roadmap-item"><div class="roadmap-dot dot-next">4</div><div class="roadmap-body"><div class="roadmap-phase">Phase 4 — Planned</div><div class="roadmap-title">Enterprise Hardening</div><div class="roadmap-desc">Versioned release pipeline, automated a11y CI gates, performance regression tracking, documentation governance, and plugin architecture expansion.</div></div></div>
+    <div class="roadmap-item"><div class="roadmap-dot dot-next" style="font-size:12px">&#8734;</div><div class="roadmap-body"><div class="roadmap-phase">Long-Term</div><div class="roadmap-title">Multi-Framework &amp; SaaS</div><div class="roadmap-desc">Vue and Angular adapters, design token version registry, enterprise SaaS licensing, and a standalone design system analytics dashboard product.</div></div></div>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:linear-gradient(135deg,var(--color-primary-dim),var(--color-accent-dim));border:1px solid rgba(59,255,200,0.25);border-radius:var(--radius-xl);padding:var(--space-2xl);margin-top:var(--space-xl);text-align:center;">
+    <h3 style="font-family:var(--font-display);font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:var(--space-md);">Ready to implement at enterprise scale?</h3>
+    <p style="color:var(--text-secondary);max-width:480px;margin:0 auto var(--space-xl);">Magic2U Design System is architected for teams of 5 to 500. Plug in, scale up, ship faster.</p>
+    <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-lg" onclick="showToast('Demo scheduled!','A full walkthrough has been queued','success')">Schedule a Demo</button>
+      <button class="btn btn-ghost btn-lg" onclick="showToast('Repo access granted','Check your email for the invite link','info')">View on GitHub</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Magic2U Design System</div>
+  <div class="footer-sub">v0.1.0-beta &middot; Built with enterprise intent &middot; 2025</div>
+  <div style="margin-top:var(--space-md);display:flex;justify-content:center;gap:var(--space-xl);">
+    <span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">MIT License</span>
+    <span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">React 18.2</span>
+    <span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">TypeScript 5.3</span>
+    <span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">pnpm Workspaces</span>
+  </div>
+</footer>
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Component Spec — StatCard</h3>
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    </div>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:var(--space-lg);">The <code style="font-family:var(--font-mono);color:var(--color-accent)">StatCard</code> component renders a metric with a label, value, optional delta, and trend indicator.</p>
+    <div style="display:flex;flex-direction:column;gap:var(--space-sm);margin-bottom:var(--space-lg);">
+      <div style="display:flex;gap:var(--space-md);font-size:13px;border-bottom:1px solid var(--color-border);padding-bottom:var(--space-sm);"><span style="font-family:var(--font-mono);color:var(--color-accent);width:80px">label</span><span style="color:var(--text-secondary)">string — Display text</span></div>
+      <div style="display:flex;gap:var(--space-md);font-size:13px;border-bottom:1px solid var(--color-border);padding-bottom:var(--space-sm);"><span style="font-family:var(--font-mono);color:var(--color-accent);width:80px">value</span><span style="color:var(--text-secondary)">string — Formatted metric value</span></div>
+      <div style="display:flex;gap:var(--space-md);font-size:13px;border-bottom:1px solid var(--color-border);padding-bottom:var(--space-sm);"><span style="font-family:var(--font-mono);color:var(--color-accent);width:80px">delta?</span><span style="color:var(--text-secondary)">string — Change indicator (+12%)</span></div>
+      <div style="display:flex;gap:var(--space-md);font-size:13px;"><span style="font-family:var(--font-mono);color:var(--color-accent);width:80px">trend?</span><span style="color:var(--text-secondary))">"up" | "down" | "neutral"</span></div>
+    </div>
+    <div style="display:flex;gap:var(--space-sm);justify-content:flex-end;">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Close</button>
+      <button class="btn btn-primary btn-sm" onclick="closeModal();showToast('Docs opened','Full component API reference loaded','success')">View Full Docs</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toast-stack"></div>
+
+<script>
+function setTab(el,msg){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById('tab-content').textContent='→ '+msg;}
+function openModal(){document.getElementById('modal').classList.add('open');}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function closeModalOnOverlay(e){if(e.target===document.getElementById('modal'))closeModal();}
+let tc=0;
+function showToast(title,sub,type){
+  const stack=document.getElementById('toast-stack');
+  const id='t'+tc++;
+  const c={success:'#3BFFC8',error:'#FF4F6C',info:'#63C4FF',warn:'#FFB830'};
+  const d=c[type]||c.info;
+  const el=document.createElement('div');
+  el.className='toast';el.id=id;
+  el.innerHTML='<div class="toast-dot" style="background:'+d+';box-shadow:0 0 8px '+d+'44"></div><div class="toast-msg"><div class="toast-title">'+title+'</div><div class="toast-sub">'+sub+'</div></div><span style="color:var(--text-muted);font-size:18px;line-height:1" onclick="removeToast(\''+id+'\')">×</span>';
+  el.onclick=()=>removeToast(id);
+  stack.appendChild(el);
+  setTimeout(()=>removeToast(id),4200);
+}
+function removeToast(id){const el=document.getElementById(id);if(!el)return;el.classList.add('hiding');setTimeout(()=>el.remove(),300);}
+function copyCode(btn){const pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);});}
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
+reveals.forEach(r=>obs.observe(r));
+const evs=[
+  {comp:'Button',event:'click',team:'consumer-web',ms:12},
+  {comp:'StatCard',event:'render',team:'platform',ms:8},
+  {comp:'Modal',event:'open',team:'internal-tools',ms:5},
+  {comp:'Badge',event:'render',team:'mobile',ms:3},
+  {comp:'Input',event:'focus',team:'consumer-web',ms:4},
+  {comp:'Tab',event:'change',team:'platform',ms:6},
+  {comp:'Toggle',event:'change',team:'partner-portal',ms:7},
+  {comp:'Table',event:'render',team:'internal-tools',ms:22},
+];
+const ec={click:'#3BFFC8',render:'#63C4FF',open:'#FFB830',focus:'#7FA8C9',change:'#C792EA',hover:'#546E7A'};
+function addTelEvent(){
+  const feed=document.getElementById('telemetry-feed');if(!feed)return;
+  const ev=evs[Math.floor(Math.random()*evs.length)];
+  const t=new Date().toLocaleTimeString('en-US',{hour12:false});
+  const color=ec[ev.event]||'#7FA8C9';
+  const row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:12px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.02);animation:fadeUp 0.3s ease both;font-family:var(--font-mono);font-size:11px;';
+  row.innerHTML='<span style="color:var(--text-muted);width:60px;flex-shrink:0">'+t+'</span><span style="color:'+color+';width:60px;flex-shrink:0">'+ev.event+'</span><span style="color:var(--text-primary);width:80px;flex-shrink:0">'+ev.comp+'</span><span style="color:var(--text-muted)">'+ev.team+'</span><span style="margin-left:auto;color:var(--color-primary)">'+ev.ms+'ms</span>';
+  feed.insertBefore(row,feed.firstChild);
+  if(feed.children.length>20)feed.lastChild.remove();
+}
+setInterval(addTelEvent,1100);
+addTelEvent();addTelEvent();addTelEvent();
+</script>
+</body>
+</html>

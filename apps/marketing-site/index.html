@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- 
+  ------------------------------------------------------------
+  Document Type Declaration
+  ------------------------------------------------------------
+  Declares this file as an HTML5 document. This ensures modern
+  browser rendering modes and unlocks contemporary layout,
+  styling, and scripting features. Without this declaration,
+  browsers may fall back to "quirks mode," causing inconsistent
+  rendering across environments.
+-->
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <!-- 
+    ------------------------------------------------------------
+    Character Encoding
+    ------------------------------------------------------------
+    UTF-8 is the universal standard for encoding text on the web.
+    It ensures support for all modern characters, symbols, and
+    emojis. This prevents issues with special characters in UI
+    labels, component names, or documentation content.
+  -->
+
+  <title>Magic2U Design System</title>
+  <!-- 
+    ------------------------------------------------------------
+    Document Title
+    ------------------------------------------------------------
+    Appears in the browser tab, bookmarks, and search engine
+    previews. This title establishes the identity of the page
+    and reinforces the Magic2U brand.
+  -->
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- 
+    ------------------------------------------------------------
+    Local Stylesheet
+    ------------------------------------------------------------
+    This file contains project-specific styling for the static
+    HTML demo. It may include layout rules, typography, or
+    overrides that complement the design-system styles.
+  -->
+
+  <link rel="stylesheet" href="../packages/ui/styles/reset.css">
+  <link rel="stylesheet" href="../packages/ui/styles/base.css">
+  <link rel="stylesheet" href="../packages/ui/styles/utilities.css">
+  <!-- 
+    ------------------------------------------------------------
+    Magic2U Design System Styles
+    ------------------------------------------------------------
+    These three CSS files represent the foundational styling
+    layers of the Magic2U design system:
+
+      reset.css     → Normalizes browser defaults
+      base.css      → Establishes typography, colors, spacing
+      utilities.css → Provides utility classes for layout,
+                      alignment, spacing, and display
+
+    Including these ensures that even a static HTML page benefits
+    from the same design-system consistency as your React demos.
+  -->
+</head>
+  
+<body>
+  <!-- 
+    ------------------------------------------------------------
+    Header Section
+    ------------------------------------------------------------
+    Acts as the hero area for the static documentation/demo page.
+    It introduces the Magic2U brand and communicates the purpose
+    of the system: enterprise-grade UI infrastructure.
+  -->
+  <header>
+    <h1>Magic2U Design System</h1>
+    <p>Enterprise UI Infrastructure</p>
+  </header>
+
+  <!-- 
+    ------------------------------------------------------------
+    Impact Section
+    ------------------------------------------------------------
+    This section is designed to display live or dynamic metrics
+    about the design system’s impact. The <div id="stats"> acts
+    as a mount point for JavaScript-driven updates, allowing you
+    to inject real-time analytics, KPIs, or adoption metrics.
+  -->
+  <section id="impact">
+    <h2>Live Impact</h2>
+    <div id="stats"></div>
+  </section>
+
+  <script src="js/main.js"></script>
+  <!-- 
+    ------------------------------------------------------------
+    JavaScript Entry Point
+    ------------------------------------------------------------
+    Loads the main JavaScript file responsible for populating
+    dynamic content (such as the #stats block). This script may 
+    fetch metrics, animate UI elements, or integrate with the 
+    Magic2U design system’s component library. 
+  --> 
+</body> 
+</html>

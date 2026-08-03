@@ -1,0 +1,497 @@
+/* -------------------------------------------------------
+   GLOBAL RESET / BASE
+------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f5f7;
+  color: #111827;
+}
+
+html, body {
+  overflow: visible !important;
+}
+
+/* ---------------------------------- */ 
+/* THEME + BRAND VARIABLES */ 
+/* ---------------------------------- */ 
+
+.theme-light {
+  --bg: #ffffff;
+  --text: #222;
+  --primary: #6b4eff;
+}
+.theme-dark {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --primary: #bb86fc;
+}
+.theme-high-contrast {
+  --bg: #000000;
+  --text: #ffffff;
+  --primary: #00ffff; /* neon cyan */
+  outline: 3px solid yellow;
+}
+
+.brand-default { 
+  --brand-color: #6b4eff; 
+} 
+.brand-united { 
+  --brand-color: #0054a6; 
+} 
+.brand-custom { 
+  --brand-color: #ff4fbf; 
+} 
+.brand-white-label { 
+  --brand-color: #111827; 
+}
+
+.brand-health {
+  --brand-color: #0054a6; /* UHC blue */
+}
+.brand-space {
+  --brand-color: #8a2be2; /* cosmic purple */
+}
+.brand-custom {
+  --brand-color: #ff4fbf; /* neon pink */
+}
+
+/* ---------------------------------- */ 
+/* DEMO COMPONENTS */ 
+/* ---------------------------------- */ 
+.demo-button { 
+  background: var(--brand-color); 
+  color: var(--text); 
+  padding: 12px 20px; 
+  border-radius: 8px; 
+  border: none; 
+  cursor: pointer; 
+} .demo-input { 
+  padding: 12px; 
+  border-radius: 8px; 
+  border: 1px solid var(--brand-color); 
+  color: var(--text); 
+  background: var(--bg); 
+} .demo-card { 
+  padding: 20px; 
+  border-radius: 12px; 
+  background: var(--bg); 
+  border: 2px solid var(--brand-color); 
+  color: var(--text); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------------------------------
+   ROOT
+------------------------------------------------------- */
+
+.landing-root {
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 40%, #ffffff 100%);
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base title styling */
+.hero-title {
+  white-space: nowrap;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Container for the cloud */
+.design-systems-cloud {
+  position: relative;
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  margin-right: 0.25em;
+}
+
+/* Text inside the cloud */
+.design-systems-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Puffy oval cloud outline */
+.design-systems-cloud::before {
+  content: "";
+  position: absolute;
+  inset: -0.25em -0.6em;
+  border-radius: 999px;
+  border: 2px solid rgba(148, 163, 184, 0.9); /* soft slate outline */
+  background: radial-gradient(circle at 30% 20%, #ffffff 0, #f9fafb 40%, #e5e7eb 100%);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 6px 14px rgba(15, 23, 42, 0.18);
+  z-index: 1;
+}
+
+/* Gentle floating animation */
+.design-systems-cloud {
+  animation: ds-cloud-float 4s ease-in-out infinite;
+}
+
+@keyframes ds-cloud-float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+/* -------------------------------------------------------
+   HEADER
+------------------------------------------------------- */
+
+.landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 4rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 1.1rem;
+}
+
+.landing-header nav a {
+  margin-right: 1.5rem;
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.landing-header nav a:last-child {
+  margin-right: 0;
+}
+
+.landing-header nav a:hover {
+  color: #111827;
+}
+
+.cta-button {
+  background: #111827;
+  color: white;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.35);
+  background: #020617;
+}
+
+/* -------------------------------------------------------
+   HERO
+------------------------------------------------------- */
+
+.landing-hero {
+  padding: 4.5rem 4rem 3.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.landing-hero h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.04em;
+}
+
+.landing-hero p {
+  font-size: 1.05rem;
+  max-width: 640px;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons a {
+  margin-right: 0.75rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.cta-primary {
+  background: #111827;
+  color: white;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.35);
+}
+
+.cta-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+}
+
+.cta-secondary {
+  background: white;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.cta-secondary:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* -------------------------------------------------------
+   SECTIONS
+------------------------------------------------------- */
+
+.landing-section {
+  padding: 3rem 4rem;
+}
+
+.landing-section.alt {
+  background: #f9fafb;
+}
+
+.landing-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.center {
+  text-align: center;
+}
+
+/* -------------------------------------------------------
+   FEATURE GRID
+------------------------------------------------------- */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 18px;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.feature-card p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  border-color: #d1d5db;
+}
+
+/* -------------------------------------------------------
+   WHITE-LABEL DEMO
+------------------------------------------------------- */
+
+.white-label-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 2rem auto 0;
+}
+
+.brand-card {
+  flex: 1 1 260px;
+  max-width: 320px;
+  background: linear-gradient(135deg, #0f172a, #1f2937);
+  color: white;
+  padding: 1.8rem 1.6rem;
+  border-radius: 18px;
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.brand-card.white {
+  background: white;
+  color: #111827;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.brand-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.brand-card p {
+  margin: 0;
+  color: inherit;
+}
+
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.5);
+}
+
+/* -------------------------------------------------------
+   PRICING
+------------------------------------------------------- */
+
+.pricing-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+}
+
+.pricing-card {
+  flex: 1 1 240px;
+  max-width: 280px;
+  background: white;
+  border-radius: 18px;
+  padding: 1.8rem 1.6rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.05);
+  text-align: left;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.pricing-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.2rem 0 0.8rem;
+}
+
+.pricing-card p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+  border-color: #d1d5db;
+}
+
+/* -------------------------------------------------------
+   SALES SECTION
+------------------------------------------------------- */
+
+#sales p {
+  max-width: 520px;
+  margin: 0 auto 1rem;
+  color: #4b5563;
+}
+
+#sales .cta-primary {
+  margin-top: 0.5rem;
+}
+
+/* -------------------------------------------------------
+   FOOTER
+------------------------------------------------------- */
+.cloud-status {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.landing-footer {
+  padding: 2rem 4rem 2.5rem;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-bottom a {
+  color: #111827;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------
+   RESPONSIVE
+------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .landing-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .landing-hero {
+    padding: 3rem 1.5rem 2.5rem;
+  }
+
+  .landing-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

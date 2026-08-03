@@ -1,0 +1,54 @@
+# ------------------------------------------------------------
+# Workflow: Accessibility Check
+# ------------------------------------------------------------
+# Purpose:
+#   This workflow ensures that every pull request maintains
+#   accessibility standards across the Magic2U design system.
+#
+# Why this matters:
+#   - Accessibility is a core pillar of UI quality
+#   - Prevents regressions before merging
+#   - Ensures components remain inclusive and compliant
+#
+# Trigger:
+#   Runs automatically on every pull request.
+# ------------------------------------------------------------
+
+name: Accessibility Check
+
+on:
+  pull_request:   # Runs for all PRs targeting any branch
+    # You can optionally filter branches here if needed
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest   # GitHub-hosted Linux runner
+
+    steps:
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      # Pulls down the PR branch so the workflow can run tests
+      # against the actual code being proposed.
+      - uses: actions/checkout@v3
+
+      # --------------------------------------------------------
+      # Step 2: Install dependencies
+      # --------------------------------------------------------
+      # Uses pnpm (your monorepo package manager) to install
+      # all workspace dependencies.
+      #
+      # This ensures:
+      #   - consistent lockfile usage
+      #   - reproducible installs
+      #   - fast, cached dependency resolution
+      - run: pnpm install
+
+      # --------------------------------------------------------
+      # Step 3: Run accessibility test suite
+      # --------------------------------------------------------
+      # The "--filter accessibility" flag ensures that only
+      # accessibility-related tests run.
+      #
+      # This keeps the workflow fast and focused.
+      - run: pnpm test --filter accessibility

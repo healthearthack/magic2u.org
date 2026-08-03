@@ -1,0 +1,209 @@
+/* Main Fairy */
+.fairy {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;      /* bigger click target */
+  height: 60px;
+  cursor: pointer;
+  z-index: 9999;
+  animation: hover-wiggle 3s ease-in-out infinite;
+  pointer-events: auto;
+}
+
+.fairy-chat {
+  position: fixed;
+  width: 300px;
+  max-height: 380px;
+
+  /* Magical unified container */
+  background: rgba(25, 10, 45, 0.92);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 14px;
+
+  /* Make it feel like one object */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* Magical glow */
+  box-shadow:
+    0 0 20px rgba(180, 140, 255, 0.6),
+    0 0 40px rgba(120, 80, 255, 0.4);
+
+  /* Always above everything */
+  z-index: 999999 !important;
+
+  /* Smooth movement with fairy */
+  transform: translate(-50%, -110%);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+}
+
+/* Scrollbar subtle */
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+}
+
+.msg {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: 90%;
+}
+
+/* User bubble */
+.msg.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #ffd6a5, #ff9f9a);
+  color: #2b0b1f;
+}
+
+/* Fairy bubble */
+.msg.fairy {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #c4b5fd, #7c3aed);
+  color: #0b0615;
+  box-shadow: 0 0 12px rgba(196, 181, 253, 0.6);
+}
+
+.chat-input {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px;
+  border-radius: 12px;
+}
+
+}
+
+.chat-input input {
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 10px;
+  font-size: 13px;
+  background: rgba(5, 2, 15, 0.9);
+  color: #f8f0ff;
+  outline: none;
+}
+
+.chat-input input::placeholder {
+  color: rgba(248, 240, 255, 0.6);
+}
+
+.chat-input button {
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.7);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.chat-input button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(248, 113, 113, 0.9);
+}
+
+.chat-input button:active {
+  transform: translateY(0);
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.6);
+}
+
+.fairy:hover .fairy-core {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+/* Fairy Core */
+.fairy-core {
+  position: absolute;
+  width: 22px;      /* bigger core */
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  box-shadow:
+    0 0 18px 10px rgba(255, 255, 255, 0.95),
+    0 0 30px 18px rgba(255, 200, 255, 0.9),
+    0 0 45px 25px rgba(255, 150, 255, 0.8);
+  pointer-events: none;
+}
+
+/* Fairy Glow */
+.fairy-glow {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  border-radius: 50%;
+  filter: blur(12px);
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Fairy Sparkle */
+.fairy-sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: sparkle 1.2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Sparkle Trail */
+.fairy-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: trailFade 0.8s ease-out forwards;
+  box-shadow: 0 0 12px 6px rgba(255,255,255,0.8);
+  z-index: 999999 !important;
+}
+
+@keyframes trailFade {
+  from { transform: scale(1); opacity: 0.9; }
+  to { transform: scale(0.2); opacity: 0; }
+}
+
+/* Theme-aware fairy colors */
+.theme-light .fairy-core {
+  box-shadow: 0 0 12px 6px #ffd6ff, 0 0 20px 10px #ffb3ff;
+}
+
+.theme-dark .fairy-core {
+  box-shadow: 0 0 12px 6px #a78bfa, 0 0 20px 10px #7c3aed;
+}
+
+.theme-high-contrast .fairy-core {
+  box-shadow: 0 0 12px 6px yellow, 0 0 20px 10px orange;
+}

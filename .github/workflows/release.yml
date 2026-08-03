@@ -1,0 +1,74 @@
+# ------------------------------------------------------------
+# Workflow: Release
+# ------------------------------------------------------------
+# Purpose:
+#   This workflow automates the final step of the Magic2U
+#   release pipeline: publishing updated packages to npm.
+#
+#   It is triggered ONLY when code is pushed to the main branch.
+#   Typically, this happens when a "Version Packages" PR created
+#   by Changesets is merged.
+#
+# Why this matters:
+#   - Ensures releases are consistent and reproducible
+#   - Eliminates manual publishing steps
+#   - Guarantees that version bumps + changelogs are applied
+#   - Publishes all updated packages in the monorepo
+#
+# This workflow is the final stage of your CI/CD pipeline.
+# ------------------------------------------------------------
+
+name: Release
+
+on:
+  push:
+    branches: [main]   # Only publish when main is updated
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest   # GitHub-hosted Linux runner
+
+    steps:
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      # Pulls down the latest version of the main branch.
+      # Required so the workflow can build and publish packages.
+      - uses: actions/checkout@v3
+
+      # --------------------------------------------------------
+      # Step 2: Install dependencies
+      # --------------------------------------------------------
+      # Installs all workspace dependencies using pnpm.
+      # Ensures:
+      #   - deterministic lockfile usage
+      #   - consistent builds
+      #   - correct dependency graph for publishing
+      - run: pnpm install
+
+      # --------------------------------------------------------
+      #
+
+      # -------------------------------------------------------- 
+      # Step 3: Build the monorepo 
+      # -------------------------------------------------------- 
+      # Runs the full build across all packages. # This ensures: 
+      # - packages compile successfully 
+      # - type declarations are generated 
+      # - build artifacts exist before publishing 
+      # 
+      # Turbo handles dependency ordering automatically.
+      - run: pnpm build 
+      # -------------------------------------------------------- 
+      # Step 4: Publish updated packages 
+      # -------------------------------------------------------- 
+      # "pnpm release" is your Changesets publish command. 
+      # 
+      # It: 
+      # - reads pending changesets 
+      # - applies version bumps 
+      # - generates changelogs 
+      # - publishes updated packages to npm 
+      # 
+      # This step is the heart of your automated release pipeline. 
+      - run: pnpm release

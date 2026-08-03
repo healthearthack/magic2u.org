@@ -1,0 +1,77 @@
+# ------------------------------------------------------------
+# Workflow: Deploy Pages
+# ------------------------------------------------------------
+# Purpose:
+#   Automatically build and deploy the Magic2U documentation,
+#   Storybook, or static site to GitHub Pages whenever changes
+#   are pushed to the main branch.
+#
+# Why this matters:
+#   - Ensures docs and demos are always up to date
+#   - Eliminates manual deployment steps
+#   - Provides a live, public-facing reference for the design system
+#   - Guarantees consistency between code and documentation
+#
+# Trigger:
+#   Runs only when commits land on the main branch.
+#   This prevents PR noise and ensures only production-ready
+#   content is deployed.
+# ------------------------------------------------------------
+
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]   # Deploy only when main is updated
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest   # GitHub-hosted Linux runner
+
+    steps:
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      # Pulls down the latest version of the main branch.
+      # Required so the workflow can build the site from source.
+      - uses: actions/checkout@v4 
+      # -------------------------------------------------------- 
+      # Step 2: Install pnpm 
+      # -------------------------------------------------------- 
+      # Magic2U uses pnpm as its monorepo package manager. 
+      # This installs the correct version before running builds.
+       - uses: pnpm/action-setup@v2 with: version: 9 
+       # -------------------------------------------------------- 
+       # Step 3: Install dependencies 
+       # -------------------------------------------------------- 
+       # Installs all workspace dependencies using pnpm. # Ensures reproducible builds and consistent lockfile usage. 
+       - run: pnpm install 
+       # -------------------------------------------------------- 
+       # Step 4: Build the static site 
+       # -------------------------------------------------------- 
+       # "pnpm metrics" is your custom build command that:
+       # - generates static assets 
+       # - outputs them into ./public 
+       # 
+       # This could be Storybook, a docs site, or a custom UI demo. - run: pnpm metrics 
+       # -------------------------------------------------------- 
+       # Step 5: Deploy to GitHub Pages 
+       # -------------------------------------------------------- 
+       # Uses the well-established peaceiris GH Pages action. 
+       # 
+       # github_token: 
+       # - Provided automatically by GitHub 
+       # - Grants permission to push to the gh-pages branch 
+       #
+       # publish_dir: 
+       # - Points to the folder containing the built static site 
+       # - Must match your build output directory 
+       # 
+       # After this step: 
+       # - The site is deployed 
+       # - GitHub Pages serves it publicly 
+       - uses: peaceiris/actions-gh-pages@v3 
+         with: 
+           github_token: ${{ secrets.GITHUB_TOKEN }} 
+           publish_dir: ./public
+      

@@ -1,0 +1,85 @@
+# ------------------------------------------------------------
+# Workflow: Continuous Integration (CI)
+# ------------------------------------------------------------
+# Purpose:
+#   This workflow validates the health of the Magic2U monorepo
+#   on every pull request and every push to the main branch.
+#
+# Why this matters:
+#   - Prevents broken builds from entering main
+#   - Ensures TypeScript, linting, and tests stay green
+#   - Guarantees that all packages in the monorepo compile
+#   - Creates a predictable, stable development experience
+#
+# Trigger:
+#   - Runs on all pull requests (quality gate before merging)
+#   - Runs on pushes to main (protects production branch)
+# ------------------------------------------------------------
+
+name: CI
+
+on:
+  pull_request:   # Validate all incoming PRs
+  push:
+    branches: [main]   # Re-run CI when main is updated
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # GitHub-hosted Linux runner
+
+    steps:
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      # Pulls down the repository code so the workflow can run
+      # builds, tests, and linting against the actual source.
+      - uses: actions/checkout@v3
+
+      # --------------------------------------------------------
+      # Step 2: Install pnpm
+      # --------------------------------------------------------
+      # Magic2U uses pnpm as the monorepo package manager.
+      # This step ensures the correct version is installed.
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      # --------------------------------------------------------
+      # Step 3: Install dependencies
+      # --------------------------------------------------------
+      # Installs all workspace dependencies using pnpm.
+      # Benefits:
+      #   - deterministic lockfile
+      #   - fast, cached installs
+      #   - efficient monorepo linking
+      - run: pnpm install
+
+      # --------------------------------------------------------
+      # Step 4: Build the monorepo
+      # --------------------------------------------------------
+      # Runs "pnpm build", which triggers Turbo to:
+      #   - build all packages in dependency order
+      #   - cache build outputs
+      #   - ensure no package has a broken build
+      - run: pnpm build
+
+      # --------------------------------------------------------
+      # Step 5: Lint the codebase
+      # --------------------------------------------------------
+      # Ensures code quality and consistency across:
+      #   - apps
+      #   - packages
+      #   - tooling
+      #
+      # Prevents stylistic drift and catches common errors early.
+      - run: pnpm lint
+
+      # --------------------------------------------------------
+      # Step 6: Run test suite
+      # --------------------------------------------------------
+      # Executes all unit tests across the monorepo.
+      # Ensures:
+      #   - components behave correctly
+      #   - utilities remain stable
+      #   - regressions are caught before merging
+      - run: pnpm test

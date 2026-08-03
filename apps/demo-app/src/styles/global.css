@@ -1,0 +1,60 @@
+/* ------------------------------------------------------------
+   Global Body Styles
+   ------------------------------------------------------------
+   This block establishes the foundational visual baseline for
+   the entire application. Because the <body> element wraps the
+   entire DOM, these styles influence every component, layout,
+   and page-level surface.
+
+   These rules are intentionally minimal but high-impact:
+   - They reset browser defaults
+   - They establish typography
+   - They define the global background canvas
+   ------------------------------------------------------------ */
+body {
+  /* ----------------------------------------------------------
+     margin: 0
+     ----------------------------------------------------------
+     Browsers apply default margins to <body>, which creates
+     unwanted whitespace around the edges of the viewport.
+
+     Setting margin: 0 ensures:
+       - full-bleed layouts
+       - pixel-perfect control over spacing
+       - consistent rendering across browsers
+     ---------------------------------------------------------- */
+  margin: 0;
+
+  /* ----------------------------------------------------------
+     font-family: Inter, system-ui
+     ----------------------------------------------------------
+     Defines the global typeface for the entire application.
+
+     Inter:
+       - A modern, highly readable sans-serif
+       - Designed for UI and dashboard environments
+       - Excellent at small and large sizes
+
+     system-ui fallback:
+       - Uses the OS-native UI font (San Francisco, Segoe UI, Roboto)
+       - Ensures graceful degradation if Inter fails to load
+     ---------------------------------------------------------- */
+  font-family: Inter, system-ui;
+
+  /* ----------------------------------------------------------
+     background: #0f172a
+     ----------------------------------------------------------
+     Sets the global background color for the entire app.
+
+     #0f172a:
+       - A deep navy slate tone
+       - High contrast for light text
+       - Ideal for dashboards, analytics, and enterprise UIs
+       - Matches Tailwind’s “slate-900” aesthetic
+
+     This creates a strong visual foundation for Magic2U’s
+     design language, especially when paired with bright,
+     high-contrast components.
+     ---------------------------------------------------------- */
+  background: #0f172a;
+}

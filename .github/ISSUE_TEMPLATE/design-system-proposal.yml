@@ -1,0 +1,22 @@
+name: 🎨 Design System Proposal
+description: Propose a new component, token, or design pattern
+title: "[Design Proposal]: "
+labels: ["design-system"]
+
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component or Token Name
+      placeholder: Button, Card, Spacing Scale, etc.
+
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use Case
+
+  - type: textarea
+    id: visual
+    attributes:
+      label: Visual Reference or Inspiration
+

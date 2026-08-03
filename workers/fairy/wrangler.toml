@@ -1,0 +1,8 @@
+name = "magic2u-fairy"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+
+routes = [
+  { pattern = "magic2u.org/api/fairy", zone_name = "magic2u.org" }
+]
+
