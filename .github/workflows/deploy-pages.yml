@@ -46,7 +46,7 @@ jobs:
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/demo-app/dist
+          path: apps/studio/dist
 
   deploy:
     environment:

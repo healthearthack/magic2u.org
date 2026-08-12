@@ -21,7 +21,7 @@ Requirements: Node.js 20 or newer and pnpm 8 or newer.
 ```bash
 pnpm install
 pnpm build
-pnpm --filter demo-app dev
+pnpm --filter @magic2u/studio dev
 ```
 
 Open the local address printed by Vite. No application programming interface key, database, or hosted service is required.
@@ -30,15 +30,15 @@ Open the local address printed by Vite. No application programming interface key
 
 ```bash
 pnpm build
-pnpm --filter demo-app preview
+pnpm --filter @magic2u/studio preview
 ```
 
-The deployable static site is generated in `apps/demo-app/dist`. It can be hosted on GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any static web server.
+The deployable static site is generated in `apps/studio/dist`. It can be hosted on GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any static web server.
 
 ## Active project structure
 
 ```text
-apps/demo-app/     Supported Magic2U product
+apps/studio/     Supported Magic2U product
 packages/ui/       Reusable component-library foundation
 docs/              Design and engineering documentation
 artifacts/         Preserved historical source material
