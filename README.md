@@ -1,5 +1,7 @@
 # Magic2U Design-System Platform
 
+[![Continuous Integration](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml)
+
 Magic2U turns approved brand decisions into accessible, portable design tokens and production outputs. The public Studio is the fast entry point; the same configuration feeds a deeper architecture for engineering, mobile, print, merchandise, and campaign work.
 
 Production: [magic2u.org](https://magic2u.org)

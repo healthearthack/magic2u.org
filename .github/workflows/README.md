@@ -1,28 +1,28 @@
-# ⚙️ Magic2U Monorepo — CI, Accessibility, Deployment & Release Workflows
+# Magic2U automation
 
-Magic2U uses a suite of GitHub Actions workflows to ensure code quality, accessibility, reliability, and seamless deployment. These workflows automate the most important parts of the engineering lifecycle, allowing contributors to focus on building great experiences.
+Magic2U uses GitHub Actions for product validation. Cloudflare Workers Builds handles production deployment from the `main` branch.
 
 This document explains each workflow and how it fits into the Magic2U ecosystem.
 
 ---
 
-# 🧪 1. Continuous Integration (CI)
+## 1. Continuous Integration
 
 **File:** `.github/workflows/ci.yml`  
 **Purpose:** Validate code quality on every push and pull request.
 
-CI typically includes:
+The active workflow includes:
 
 - TypeScript type checking  
 - Linting  
 - Unit tests  
 - Build verification  
 
-This ensures that no broken code enters the main branch.
+This is the required product-health check on `main`.
 
 ---
 
-# ♿ 2. Accessibility Check
+## 2. Accessibility check
 
 **File:** `.github/workflows/accessibility-check.yml`  
 **Purpose:** Prevent accessibility regressions before merging.
@@ -37,36 +37,16 @@ This keeps the design system inclusive and compliant.
 
 ---
 
-# 🚀 3. Deploy Pages (Docs / Storybook)
-
-**File:** `.github/workflows/deploy-pages.yml`  
-**Purpose:** Automatically deploy documentation or Storybook to GitHub Pages.
-
-Typical behavior:
-
-- Build the docs or Storybook site  
-- Upload the static output  
-- Deploy to GitHub Pages  
-- Provide preview URLs for PRs  
-
-This ensures the design system is always documented and accessible.
-
----
-
-# 📦 4. Release Automation (Changesets)
+## 3. Release readiness
 
 **File:** `.github/workflows/release.yml`  
-**Purpose:** Automate versioning and publishing of Magic2U packages.
+**Purpose:** Manually validate a release candidate before publication.
 
-This workflow:
+This workflow is started with **Actions → Release Readiness → Run workflow**. It installs dependencies, builds the product, runs lint checks, and runs available tests. It does not publish packages.
 
-- Detects pending changesets  
-- Opens a release PR  
-- Applies semantic version bumps  
-- Generates changelogs  
-- Publishes packages to npm  
+## Production deployment
 
-This keeps releases predictable, traceable, and professional.
+Cloudflare, not GitHub Pages, hosts `magic2u.org`. A successful push to `main` starts a Cloudflare Workers Build using the repository's Wrangler configuration.
 
 ---
 
@@ -76,8 +56,8 @@ This keeps releases predictable, traceable, and professional.
 |---------|---------|---------|
 | **CI** | Build, lint, test, type-check | Push & PR |
 | **Accessibility Check** | Run a11y test suite | PR |
-| **Deploy Pages** | Publish docs/Storybook | Push to `main` |
-| **Release** | Version & publish packages | Merge of release PR |
+| **Cloudflare Workers Build** | Build and deploy `magic2u.org` | Push to `main` |
+| **Release Readiness** | Validate a release candidate | Manual |
 
 ---
 
@@ -90,14 +70,12 @@ Magic2U’s automation pipeline follows a clear flow:
    - Accessibility checks run  
    - Preview deployments run (optional)
 
-2. **PR is reviewed and merged**  
-   - Deploy Pages publishes updated docs  
-   - Release workflow prepares version bumps
+2. **PR is reviewed and merged**
+   - Continuous Integration runs on `main`
+   - Cloudflare builds and deploys production
 
-3. **Release PR is merged**  
-   - Packages are published to npm  
-   - Changelogs are generated  
-   - GitHub releases are created  
+3. **A release candidate needs validation**
+   - A maintainer manually runs Release Readiness
 
 This creates a smooth, professional, end‑to‑end development experience.
 
@@ -109,7 +87,7 @@ Magic2U’s GitHub Actions workflows ensure:
 
 - High code quality  
 - Strong accessibility guarantees  
-- Automatic documentation deployment  
-- Predictable, automated releases  
+- Cloudflare production deployment
+- Repeatable manual release validation
 
 These workflows form the backbone of a scalable, contributor‑friendly engineering system.
