@@ -1,72 +1,31 @@
-# Magic2U Design-System Platform
+<!-- <img width="1942" height="809" alt="Miami" src="https://github.com/user-attachments/assets/ea27785c-eecc-43c6-b058-9c7354765bc8" /> -->
 
-[![Continuous Integration](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml)
-[![Continuous Deployment: Cloudflare](https://img.shields.io/badge/Continuous%20Deployment-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://magic2u.org)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/healthearthack/healthearthack/main/paradise.gif" width="100%">
+</p>
 
-Magic2U turns approved brand decisions into accessible, portable design tokens and production outputs. The public Studio is the fast entry point; the same configuration feeds a deeper architecture for engineering, mobile, print, merchandise, and campaign work.
+<p align="center">
+  <strong><a href="https://magic2u.org">Magic2U</a> turns brand decisions into accessible, portable design tokens and production-ready outputs.</strong>
+</p>
 
-Production: [magic2u.org](https://magic2u.org)
+<p align="center">
+  <img alt="Unified system" src="https://img.shields.io/badge/System-Unified-2563EB">
+  <img alt="Production lifecycle" src="https://img.shields.io/badge/Lifecycle-Production-16A34A">
+  <a href="https://magic2u.org"><img alt="Magic2U website status" src="https://img.shields.io/website?url=https%3A%2F%2Fmagic2u.org&up_message=live&down_message=offline&label=Magic2U&color=16a34a"></a>
+  <a href="https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml"><img alt="Continuous Integration status" src="https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="https://magic2u.org"><img alt="Continuous Deployment on Cloudflare" src="https://img.shields.io/badge/CD-Cloudflare-F38020?logo=cloudflare&logoColor=white"></a>
+  <a href="https://github.com/healthearthack/magic2u.org/commits/main"><img alt="Last repository update" src="https://img.shields.io/github/last-commit/healthearthack/magic2u.org?label=updated"></a>
+</p>
 
-## What the product does
+<p align="center">
+  <sub>One repository, one production system: every approved update is built, checked, and deployed from the same source of truth.</sub>
+</p>
 
-- Configures brand color, accent, typography, spacing, radius, appearance, and output target.
-- Calculates the actual foreground/background contrast ratio.
-- Previews decisions against a working product interface.
-- Organizes values into foundation, semantic, component, and output layers.
-- Exports Design Tokens Community Group-style JavaScript Object Notation and Cascading Style Sheets variables.
-- Saves a working system locally without requiring an account.
-- Explains a practical discovery, definition, and deployment path for adoption.
+### Unified delivery roadmap
 
-## Product model
-
-| Offering | Customer value | Business role |
+| Status | Product | Design-system progression |
 | --- | --- | --- |
-| Studio | Configure, validate, and export a local system | Free adoption funnel |
-| Team system | Multi-brand architecture, repository integration, and documentation | Implementation engagement |
-| Managed platform | Governance, releases, audits, and custom output compilers | Recurring organizational service |
+| 🟢 **Operating** | [Magic2U](https://github.com/healthearthack/magic2u.org) | Shared tokens, validation, compilation, Continuous Integration, and Cloudflare deployment |
+| 🟡 **Next** | [weather-model](https://github.com/healthearthack/weather-model) | Apply Magic2U tokens and components → validate accessibility → unify automation → deploy |
 
-Magic2U does not maintain a second design system in the profile-site repository. The former `healthearthack.github.io` design-system concepts were evaluated and consolidated here. That repository can return to its role as Andrew Kieckhefer's profile and project index.
-
-## Supported architecture
-
-```text
-Brand foundations
-      ↓
-Semantic roles
-      ↓
-Component contracts
-      ↓
-Web · mobile · print · campaign outputs
-```
-
-The canonical compiler lives in `apps/studio/src/tokenEngine.ts`. It generates the product's portable token registry and Cascading Style Sheets output from one configuration object.
-
-## Local development
-
-Requirements: Node.js 22 and pnpm 11.16.0.
-
-```bash
-pnpm install --frozen-lockfile
-pnpm build
-pnpm --filter @magic2u/studio dev
-```
-
-## Production deployment
-
-Every push to `main` runs Continuous Integration on GitHub. Cloudflare then builds and deploys the Worker-backed static application using:
-
-```text
-Build command: pnpm run build
-Deploy command: npx wrangler deploy
-Assets: apps/studio/dist
-```
-
-The custom domains `magic2u.org` and `www.magic2u.org` stay attached to the Worker while deployments advance through version history.
-
-## Scope and provenance
-
-The active product is `apps/studio`; `packages/ui` remains the component-library foundation. Concepts merged from the earlier archive include target-aware compilation, structured adoption, governance framing, multi-channel outputs, and token-layer education. Third-party brand imitations and unmeasured accessibility claims were intentionally excluded.
-
-## License
-
-Licensed under the Apache License 2.0. See [LICENSE](LICENSE).
+<p align="center"><sub>Systemize → Validate → Deploy → Operate</sub></p>
