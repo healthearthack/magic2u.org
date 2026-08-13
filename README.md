@@ -1,59 +1,68 @@
-# Magic2U Brand System Studio
+# Magic2U Design-System Platform
 
-Magic2U turns a small set of brand decisions into an accessible interface foundation. The studio lets a user choose a name, primary color, corner radius, and appearance; preview those decisions against a realistic product interface; save the project locally; and export reusable design tokens.
+Magic2U turns approved brand decisions into accessible, portable design tokens and production outputs. The public Studio is the fast entry point; the same configuration feeds a deeper architecture for engineering, mobile, print, merchandise, and campaign work.
 
-## Product features
+Production: [magic2u.org](https://magic2u.org)
 
-- Live brand and component preview
-- Four editable starting presets
-- Light and dark appearance modes
-- Automatic readable text-color selection
-- Web Content Accessibility Guidelines contrast measurement
-- Local project persistence with no account
-- JavaScript Object Notation token export
-- Responsive desktop and mobile layouts
-- Keyboard focus and reduced-motion support
+## What the product does
 
-## Run locally
+- Configures brand color, accent, typography, spacing, radius, appearance, and output target.
+- Calculates the actual foreground/background contrast ratio.
+- Previews decisions against a working product interface.
+- Organizes values into foundation, semantic, component, and output layers.
+- Exports Design Tokens Community Group-style JavaScript Object Notation and Cascading Style Sheets variables.
+- Saves a working system locally without requiring an account.
+- Explains a practical discovery, definition, and deployment path for adoption.
 
-Requirements: Node.js 20 or newer and pnpm 8 or newer.
+## Product model
+
+| Offering | Customer value | Business role |
+| --- | --- | --- |
+| Studio | Configure, validate, and export a local system | Free adoption funnel |
+| Team system | Multi-brand architecture, repository integration, and documentation | Implementation engagement |
+| Managed platform | Governance, releases, audits, and custom output compilers | Recurring organizational service |
+
+Magic2U does not maintain a second design system in the profile-site repository. The former `healthearthack.github.io` design-system concepts were evaluated and consolidated here. That repository can return to its role as Andrew Kieckhefer's profile and project index.
+
+## Supported architecture
+
+```text
+Brand foundations
+      ↓
+Semantic roles
+      ↓
+Component contracts
+      ↓
+Web · mobile · print · campaign outputs
+```
+
+The canonical compiler lives in `apps/studio/src/tokenEngine.ts`. It generates the product's portable token registry and Cascading Style Sheets output from one configuration object.
+
+## Local development
+
+Requirements: Node.js 22 and pnpm 11.16.0.
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 pnpm build
 pnpm --filter @magic2u/studio dev
 ```
 
-Open the local address printed by Vite. No application programming interface key, database, or hosted service is required.
+## Production deployment
 
-## Production build
-
-```bash
-pnpm build
-pnpm --filter @magic2u/studio preview
-```
-
-The deployable static site is generated in `apps/studio/dist`. It can be hosted on GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any static web server.
-
-## Active project structure
+Every push to `main` runs Continuous Integration on GitHub. Cloudflare then builds and deploys the Worker-backed static application using:
 
 ```text
-apps/studio/     Supported Magic2U product
-packages/ui/       Reusable component-library foundation
-docs/              Design and engineering documentation
-artifacts/         Preserved historical source material
-workers/           Unsupported research prototypes
+Build command: pnpm run build
+Deploy command: npx wrangler deploy
+Assets: apps/studio/dist
 ```
 
-Only `apps/demo-app` and `packages/ui` participate in the supported workspace build. The other directories preserve earlier research and are not required to run the product.
+The custom domains `magic2u.org` and `www.magic2u.org` stay attached to the Worker while deployments advance through version history.
 
-## Export format
+## Scope and provenance
 
-The studio exports a `.json` token file containing brand metadata, primary and on-primary colors, surface color, component radii, and appearance mode. JavaScript Object Notation is abbreviated as JSON.
-
-## Privacy and configuration
-
-Projects are stored in the browser's local storage and are never transmitted by the application. Magic2U does not require credentials. Experimental worker code may mention external services, but it is not imported by the supported product.
+The active product is `apps/studio`; `packages/ui` remains the component-library foundation. Concepts merged from the earlier archive include target-aware compilation, structured adoption, governance framing, multi-channel outputs, and token-layer education. Third-party brand imitations and unmeasured accessibility claims were intentionally excluded.
 
 ## License
 
