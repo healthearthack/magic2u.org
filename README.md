@@ -1,6 +1,7 @@
 # Magic2U Design-System Platform
 
 [![Continuous Integration](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/healthearthack/magic2u.org/actions/workflows/ci.yml)
+[![Continuous Deployment: Cloudflare](https://img.shields.io/badge/Continuous%20Deployment-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://magic2u.org)
 
 Magic2U turns approved brand decisions into accessible, portable design tokens and production outputs. The public Studio is the fast entry point; the same configuration feeds a deeper architecture for engineering, mobile, print, merchandise, and campaign work.
 
